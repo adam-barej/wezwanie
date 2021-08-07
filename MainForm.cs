@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using CSCore.CoreAudioAPI;
+using Pablo_C_Sharp.Properties;
 
 namespace Pablo_C_Sharp
 {
@@ -15,6 +16,8 @@ namespace Pablo_C_Sharp
         private string imagesLocation = "images/";
         private Boolean imageFormCreated = false;
         private ImageForm imageForm;
+
+        private float recordingVolume;
 
         public MainForm()
         {
@@ -29,7 +32,7 @@ namespace Pablo_C_Sharp
             string pletter = this.patientLetterCombo.Text;
             string pnumber = this.patientNumberCombo.Text;
             string rnumber = this.roomCombo.Text;
-            this.lastPatientLabel.Text = "Pacjent: " + pletter + pnumber + "        Gabinet: " + rnumber;
+            this.lastPatientLabel.Text = "Pacjent: " + pletter + pnumber + "       Gabinet: " + rnumber;
             string imagePath = imagesLocation + pletter + "_" + pnumber + ".png";
             string soundPath = soundLocation + pletter + "_" + pnumber + "_" + rnumber + ".mp3";
 
@@ -64,10 +67,11 @@ namespace Pablo_C_Sharp
                 imageForm.updateImage(imagePath);
             }
 
+            recordingVolume = this.volumeTrackBar.Value / 100.0f;
 
             // Sound managing
             Task.Run(() => LowerSpotifyVolume());
-            Task.Run(() => PlayRecording(soundPath));
+            Task.Run(() => PlayRecording(soundPath, recordingVolume));
         }
 
         //=============================================================
@@ -117,11 +121,21 @@ namespace Pablo_C_Sharp
             }
         }
 
-        private static void PlayRecording(string filePath)
+        private static void PlayRecording(string filePath, float _recordingVolume)
         {
             MusicPlayer player = new MusicPlayer(filePath);
             System.Threading.Thread.Sleep(1000);
-            player.Play();
+            player.Play(_recordingVolume);
+        }
+
+        private void volumeTrackBar_Scroll(object sender, EventArgs e)
+        {
+            volumeLabel.Text = volumeTrackBar.Value.ToString();
+        }
+
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Settings.Default.Save();
         }
     }
 }

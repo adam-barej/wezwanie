@@ -27,11 +27,11 @@ namespace Pablo_C_Sharp
             }
         }
 
-        public void Play()
+        public void Play(float _volume)
         {
             if (_soundOut != null)
             {
-                _soundOut.Volume = 1.0f;
+                _soundOut.Volume = _volume;
                 _soundOut.Play();
             }
         }

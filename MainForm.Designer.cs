@@ -39,9 +39,14 @@ namespace Pablo_C_Sharp
             this.lastPatientBox = new System.Windows.Forms.GroupBox();
             this.lastPatientLabel = new System.Windows.Forms.Label();
             this.displayButton = new System.Windows.Forms.Button();
+            this.soundVolumeBox = new System.Windows.Forms.GroupBox();
+            this.volumeLabel = new System.Windows.Forms.Label();
+            this.volumeTrackBar = new System.Windows.Forms.TrackBar();
             this.patientBox.SuspendLayout();
             this.roomBox.SuspendLayout();
             this.lastPatientBox.SuspendLayout();
+            this.soundVolumeBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.volumeTrackBar)).BeginInit();
             this.SuspendLayout();
             // 
             // titleLabel
@@ -152,7 +157,7 @@ namespace Pablo_C_Sharp
             this.lastPatientBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.lastPatientBox.Location = new System.Drawing.Point(12, 579);
             this.lastPatientBox.Name = "lastPatientBox";
-            this.lastPatientBox.Size = new System.Drawing.Size(958, 112);
+            this.lastPatientBox.Size = new System.Drawing.Size(475, 112);
             this.lastPatientBox.TabIndex = 3;
             this.lastPatientBox.TabStop = false;
             this.lastPatientBox.Text = " Ostatnio wyświetlony pacjent ";
@@ -163,7 +168,7 @@ namespace Pablo_C_Sharp
             this.lastPatientLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.lastPatientLabel.Location = new System.Drawing.Point(3, 26);
             this.lastPatientLabel.Name = "lastPatientLabel";
-            this.lastPatientLabel.Size = new System.Drawing.Size(952, 83);
+            this.lastPatientLabel.Size = new System.Drawing.Size(469, 83);
             this.lastPatientLabel.TabIndex = 0;
             this.lastPatientLabel.Text = "brak";
             this.lastPatientLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -179,12 +184,50 @@ namespace Pablo_C_Sharp
             this.displayButton.UseVisualStyleBackColor = true;
             this.displayButton.Click += new System.EventHandler(this.displayButton_Click);
             // 
+            // soundVolumeBox
+            // 
+            this.soundVolumeBox.Controls.Add(this.volumeLabel);
+            this.soundVolumeBox.Controls.Add(this.volumeTrackBar);
+            this.soundVolumeBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.soundVolumeBox.Location = new System.Drawing.Point(520, 579);
+            this.soundVolumeBox.Name = "soundVolumeBox";
+            this.soundVolumeBox.Size = new System.Drawing.Size(450, 112);
+            this.soundVolumeBox.TabIndex = 5;
+            this.soundVolumeBox.TabStop = false;
+            this.soundVolumeBox.Text = "Głośność nagrania";
+            // 
+            // volumeLabel
+            // 
+            this.volumeLabel.AutoSize = true;
+            this.volumeLabel.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Pablo_C_Sharp.Properties.Settings.Default, "volumeLB2", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.volumeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.volumeLabel.Location = new System.Drawing.Point(363, 52);
+            this.volumeLabel.Name = "volumeLabel";
+            this.volumeLabel.Size = new System.Drawing.Size(29, 31);
+            this.volumeLabel.TabIndex = 1;
+            this.volumeLabel.Text = global::Pablo_C_Sharp.Properties.Settings.Default.volumeLB2;
+            this.volumeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // volumeTrackBar
+            // 
+            this.volumeTrackBar.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::Pablo_C_Sharp.Properties.Settings.Default, "volumeTB2", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.volumeTrackBar.Location = new System.Drawing.Point(30, 53);
+            this.volumeTrackBar.Maximum = 100;
+            this.volumeTrackBar.Name = "volumeTrackBar";
+            this.volumeTrackBar.Size = new System.Drawing.Size(280, 56);
+            this.volumeTrackBar.TabIndex = 0;
+            this.volumeTrackBar.TickFrequency = 10;
+            this.volumeTrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.volumeTrackBar.Value = global::Pablo_C_Sharp.Properties.Settings.Default.volumeTB2;
+            this.volumeTrackBar.Scroll += new System.EventHandler(this.volumeTrackBar_Scroll);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightSkyBlue;
             this.ClientSize = new System.Drawing.Size(982, 703);
+            this.Controls.Add(this.soundVolumeBox);
             this.Controls.Add(this.displayButton);
             this.Controls.Add(this.lastPatientBox);
             this.Controls.Add(this.roomBox);
@@ -196,9 +239,13 @@ namespace Pablo_C_Sharp
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Wezwanie pacjenta";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.patientBox.ResumeLayout(false);
             this.roomBox.ResumeLayout(false);
             this.lastPatientBox.ResumeLayout(false);
+            this.soundVolumeBox.ResumeLayout(false);
+            this.soundVolumeBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.volumeTrackBar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -215,6 +262,9 @@ namespace Pablo_C_Sharp
         private System.Windows.Forms.ComboBox patientNumberCombo;
         private System.Windows.Forms.ComboBox patientLetterCombo;
         private System.Windows.Forms.ComboBox roomCombo;
+        private System.Windows.Forms.GroupBox soundVolumeBox;
+        private System.Windows.Forms.TrackBar volumeTrackBar;
+        private System.Windows.Forms.Label volumeLabel;
     }
 }
 
