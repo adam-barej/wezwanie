@@ -199,18 +199,16 @@ namespace Pablo_C_Sharp
             // volumeLabel
             // 
             this.volumeLabel.AutoSize = true;
-            this.volumeLabel.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Pablo_C_Sharp.Properties.Settings.Default, "volumeLB2", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.volumeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.volumeLabel.Location = new System.Drawing.Point(363, 52);
+            this.volumeLabel.Location = new System.Drawing.Point(350, 48);
             this.volumeLabel.Name = "volumeLabel";
             this.volumeLabel.Size = new System.Drawing.Size(29, 31);
             this.volumeLabel.TabIndex = 1;
-            this.volumeLabel.Text = global::Pablo_C_Sharp.Properties.Settings.Default.volumeLB2;
+            this.volumeLabel.Text = "6";
             this.volumeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // volumeTrackBar
             // 
-            this.volumeTrackBar.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::Pablo_C_Sharp.Properties.Settings.Default, "volumeTB2", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.volumeTrackBar.Location = new System.Drawing.Point(30, 53);
             this.volumeTrackBar.Maximum = 100;
             this.volumeTrackBar.Name = "volumeTrackBar";
@@ -218,7 +216,7 @@ namespace Pablo_C_Sharp
             this.volumeTrackBar.TabIndex = 0;
             this.volumeTrackBar.TickFrequency = 10;
             this.volumeTrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.volumeTrackBar.Value = global::Pablo_C_Sharp.Properties.Settings.Default.volumeTB2;
+            this.volumeTrackBar.Value = 6;
             this.volumeTrackBar.Scroll += new System.EventHandler(this.volumeTrackBar_Scroll);
             // 
             // MainForm
@@ -239,7 +237,8 @@ namespace Pablo_C_Sharp
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Wezwanie pacjenta";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.patientBox.ResumeLayout(false);
             this.roomBox.ResumeLayout(false);
             this.lastPatientBox.ResumeLayout(false);

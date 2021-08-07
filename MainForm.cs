@@ -5,7 +5,6 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using CSCore.CoreAudioAPI;
-using Pablo_C_Sharp.Properties;
 
 namespace Pablo_C_Sharp
 {
@@ -18,6 +17,7 @@ namespace Pablo_C_Sharp
         private ImageForm imageForm;
 
         private float recordingVolume;
+        private string volumeFilePath = "volumeFile.txt";
 
         public MainForm()
         {
@@ -133,9 +133,19 @@ namespace Pablo_C_Sharp
             volumeLabel.Text = volumeTrackBar.Value.ToString();
         }
 
-        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        private void MainForm_Load(object sender, EventArgs e)
         {
-            Settings.Default.Save();
+            if (File.Exists(volumeFilePath))
+            {
+                string fromFile = File.ReadAllText(volumeFilePath);
+                volumeTrackBar.Value = Int32.Parse(fromFile);
+                volumeLabel.Text = fromFile;
+            }
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            File.WriteAllText(volumeFilePath, volumeLabel.Text);
         }
     }
 }
